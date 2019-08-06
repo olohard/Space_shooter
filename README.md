@@ -18,3 +18,5 @@ Here is a portion of my code:
         self.vel += self.acc
         self.pos += self.vel
         self.acc *= 0
+# Controls
+You can control your rocket with left and right arrows. When you hit space your rocket will shoot. 
