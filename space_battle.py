@@ -1,19 +1,19 @@
 import pygame
 import sys
-from rocket_to_s_b import Rocket
+from rocket import Rocket
+from bullet import Bullet
 
 
 class Game(object):
-    def __init__(self):
+    def loop(self):
         # Config part of code
         pygame.init()
         pygame.time.delay(20)
         pygame.display.set_caption('Space Battle')
-        self.fps = 100.0
-        self.screen = pygame.display.set_mode((1280, 720))
-        self.clock = pygame.time.Clock()
-        self.delta = 0.0
-        self.player = Rocket(self)
+        screen = pygame.display.set_mode((980, 720))
+        fps = 0.0
+        player = Rocket(screen)
+        gun = Bullet()
 
         # Main loop
         while True:
@@ -23,22 +23,30 @@ class Game(object):
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     sys.exit()
 
-            while self.delta > 16.0:
-                self.delta -= 16.0
+            while fps > 16.0:
+                fps -= 16.0
 
-            self.screen.fill((0, 0, 0))
-            self.paint()
+            screen.fill((0, 0, 0))
+            self.draw(player)
             pygame.display.flip()
-            self.go()
+            self.go(player)
 
     # Moving an object
-    def go(self):
-        self.player.move()
+    @staticmethod
+    def go(player):
+        player.move()
 
     # Drawing an object
-    def paint(self):
-        self.player.draw()
+    @staticmethod
+    def draw(player):
+        player.draw()
+        gun.draw_bullet()
 
+    # Shooting
+    @staticmethod
+    def shoot(gun):
+        gun.shoot_bullet()
 
 if __name__ == "__main__":
-    Game()
+    g = Game()
+    g.loop()
