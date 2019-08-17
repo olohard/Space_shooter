@@ -13,7 +13,7 @@ class Game(object):
         screen = pygame.display.set_mode((980, 720))
         fps = 0.0
         player = Rocket(screen)
-        gun = Bullet()
+        gun = Bullet(x=490, y=576, radius=4, color=(255,255,255))
 
         # Main loop
         while True:
@@ -31,6 +31,7 @@ class Game(object):
             pygame.display.flip()
             self.go(player)
 
+
     # Moving an object
     @staticmethod
     def go(player):
@@ -40,12 +41,7 @@ class Game(object):
     @staticmethod
     def draw(player):
         player.draw()
-        gun.draw_bullet()
 
-    # Shooting
-    @staticmethod
-    def shoot(gun):
-        gun.shoot_bullet()
 
 if __name__ == "__main__":
     g = Game()
