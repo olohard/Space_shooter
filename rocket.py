@@ -1,6 +1,6 @@
 import pygame
 import pygame.math
-from bullet import Bullet
+
 
 
 class Rocket(object):
@@ -11,18 +11,20 @@ class Rocket(object):
         self.vel = pygame.Vector2(0, 0)                         # Rocket velocity
         self.acc = pygame.Vector2(0, 0)                         # Rocket acceleration
 
+    def get_position(self):
+        return self.pos
+
     def add_acc(self, force):
         self.acc += force
 
     def move(self):
-        bullets = []
         key = pygame.key.get_pressed()
-        if key[pygame.K_LEFT] and self.pos.x > 15:
+        if key[pygame.K_LEFT] and self.pos.x > 17:
             self.add_acc(pygame.Vector2(-1, 0))
-        if key[pygame.K_RIGHT] and self.pos.x < 965:
+        if key[pygame.K_RIGHT] and self.pos.x < 962:
             self.add_acc(pygame.Vector2(1, 0))
 
-        self.vel *= 0.1
+        self.vel *= 0.2
         self.vel += self.acc
         self.pos += self.vel
         self.acc *= 0

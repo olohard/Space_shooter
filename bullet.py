@@ -1,59 +1,25 @@
-<<<<<<< HEAD
 import pygame
+from pygame.math import Vector2
 
 
-class Bullet(object):
-        def __init__(self, x, y, radius, color):
+class Bullet:
+    def __init__(self, screen, x, y, radius, color):
+        self.screen = screen
         self.x = x
         self.y = y
         self.radius = radius
         self.color = color
-        self.speed = 5
+        self.speed = 1
 
-    @staticmethod
-    def shoot_bullet():
-        bullets = []
-        while True:
-            for bullet in bullets:
-                if bullet.y < 0:
-                    bullet.y += bullet.speed
-                else:
-                    bullets.pop(bullets.index(bullet))
+    def get_pos(self):
+        return self.y
 
-        if key[pygame.K_SPACE]:
-            if len(bullets) > 10:
-                bullets.append(Bullet(490, 576, 4, (255, 255, 255)))
+    def update_pos(self):
+        self.y -= self.speed
+
+
+    def collision(self):
+        pass
 
     def draw_bullet(self):
-        pygame.draw.circle(self.screen, (255, 255, 255), (490, 576), self.radius, 3)
-=======
-import pygame
-
-
-class Bullet(object):
-    def __init__(self, x, y, radius, color):
-        self.x = x
-        self.y = y
-        self.radius = radius
-        self.color = color
-        self.speed = 5
-
-        bullets = []
-        while True:
-            for bullet in bullets:
-                if bullet.y < 0:
-                    bullet.y += bullet.speed
-                else:
-                    bullets.pop(bullets.index(bullet))
-
-    @staticmethod
-    def shoot_bullet():
-        while True:
-            key = pygame.key.get_pressed()
-            if key[pygame.K_SPACE]:
-                if len(bullets) > 0:
-                    bullets.append(Bullet(490, 576, 4, (255, 255, 255)))
-
-    def draw_bullet(self):
-        pygame.draw.circle(self.screen, (255, 255, 255), (490, 576), self.radius, 3)
->>>>>>> 8edfd7be70b98c0f6ce38765db4e77f88933fe37
+        pygame.draw.circle(self.screen, (255, 255, 255), (int(self.x), int(self.y)), 3, 3)
