@@ -2,15 +2,22 @@ import pygame
 import sys
 from rocket import Rocket
 from bullet import Bullet
-from enemies import Enemy
+from enemy import Enemy
 from volley import VolleyOfBullets
 
+
+def collision(enemy, bullet):
+    if bullet.y < enemy.hitbox[2] + enemy.hitbox[2] and bullet.y > enemy.hitbox[2]:
+        if bullet.x < enemy.hitbox[0] + enemy.hitbox[3] and bullet.x > enemy.hitbox[3]:
+            validation = enemy.hit()
+            return validation
+    return True
 
 class Game(object):
     def loop(self):
         # Config part of code
         pygame.init()
-        pygame.time.delay(20)
+        pygame.time.delay(100)
         pygame.display.set_caption('Space Battle')
         screen = pygame.display.set_mode((980, 720))
         fps = 0.0
@@ -19,7 +26,7 @@ class Game(object):
         player = Rocket(screen)
         pos = player.get_position()
         volley = VolleyOfBullets(screen, pos[0], pos[1], radius=4, color=(255, 255, 255))
-        enemy = Enemy(screen)
+        enemy = Enemy(screen, hitbox=(475, 100, 50, 50))
 
         # Main loop
         while True:
@@ -36,13 +43,19 @@ class Game(object):
 
             volley.shoot_bullet()
             volley.update()
+            if enemy:
+                if len(volley) >= 1:
+                    collide = collision(enemy, volley[0])
+                    if not collide:
+                        del enemy
+                        volley.pop(0) #TODO funkcja do usuwania
+                        enemy = None
 
-
-            while fps > 60.0:
-                fps -= 60.0
+            while fps > 100.0:
+                fps -= 100.0
 
             screen.fill((0, 0, 0))
-            self.draw(player, enemy, volley)
+            self.draw(player, volley, enemy,)
             pygame.display.flip()
             self.go(player)
 
@@ -53,18 +66,12 @@ class Game(object):
 
     # Drawing an object
     @staticmethod
-    def draw(player, enemy, volley):
+    def draw(player,volley ,enemy):
         player.draw()
-        enemy.draw_enemy()
-        volley.draw()
-
-    @staticmethod
-    def shoot():
-        pass
-
-    @staticmethod
-    def spawn():
-        pass
+        if enemy:
+            enemy.draw_enemy()
+        if len(volley):
+            volley.draw()
 
 if __name__ == "__main__":
     g = Game()

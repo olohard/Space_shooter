@@ -24,7 +24,7 @@ class Rocket(object):
         if key[pygame.K_RIGHT] and self.pos.x < 962:
             self.add_acc(pygame.Vector2(1, 0))
 
-        self.vel *= 0.2
+        self.vel *= 0.01
         self.vel += self.acc
         self.pos += self.vel
         self.acc *= 0

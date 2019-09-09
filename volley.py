@@ -1,20 +1,20 @@
 import pygame
 from bullet import Bullet
+from enemy import Enemy
 
 
 class VolleyOfBullets(list):
-    def __init__(self,screen, x, y, radius, color):
+    def __init__(self, screen, x, y, radius, color):
         super().__init__()
         self.screen = screen
         self.rocketx = x
         self.rockety = y
         self.radius = radius
         self.color = color
-        self.flag = False
+        self.max_hitpoints = 10
 
     def set_rocket_pos(self, vector):
         self.rocketx, self.rockety = vector
-        self.flag = False
 
     def update(self):
         for bullet in self:
@@ -24,13 +24,9 @@ class VolleyOfBullets(list):
 
     def shoot_bullet(self):
         key = pygame.key.get_pressed()
-
         if key[pygame.K_SPACE]:
-            if len(self) < 100000 and not self.flag:
+            if len(self) == 0:
                 self.append(Bullet(self.screen, self.rocketx, self.rockety, 4, (255, 255, 255)))
-                self.flag = True
-                print(len(self))
-        key = pygame.key.get_pressed()
 
 
     def draw(self):
