@@ -7,11 +7,12 @@ from volley import VolleyOfBullets
 
 
 def collision(enemy, bullet):
-    if bullet.y < enemy.hitbox[2] + enemy.hitbox[2] and bullet.y > enemy.hitbox[2]:
-        if bullet.x < enemy.hitbox[0] + enemy.hitbox[3] and bullet.x > enemy.hitbox[3]:
+    if enemy.hitbox[1] + enemy.hitbox[2] > bullet.y > enemy.hitbox[2]:
+        if enemy.hitbox[0] + enemy.hitbox[3] > bullet.x > enemy.hitbox[3]:
             validation = enemy.hit()
             return validation
     return True
+
 
 class Game(object):
     def loop(self):
@@ -47,8 +48,8 @@ class Game(object):
                 if len(volley) >= 1:
                     collide = collision(enemy, volley[0])
                     if not collide:
-                        del enemy
-                        volley.pop(0) #TODO funkcja do usuwania
+                        self.del_enemy(enemy)
+                        volley.pop(0)
                         enemy = None
 
             while fps > 100.0:
@@ -59,6 +60,10 @@ class Game(object):
             pygame.display.flip()
             self.go(player)
 
+    @staticmethod
+    def del_enemy(enemy):
+        del enemy
+
     # Moving an object
     @staticmethod
     def go(player):
@@ -66,7 +71,7 @@ class Game(object):
 
     # Drawing an object
     @staticmethod
-    def draw(player,volley ,enemy):
+    def draw(player, volley, enemy):
         player.draw()
         if enemy:
             enemy.draw_enemy()

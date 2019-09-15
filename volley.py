@@ -4,11 +4,11 @@ from enemy import Enemy
 
 
 class VolleyOfBullets(list):
-    def __init__(self, screen, x, y, radius, color):
+    def __init__(self, screen, rocketx, rockety, radius, color):
         super().__init__()
         self.screen = screen
-        self.rocketx = x
-        self.rockety = y
+        self.rocketx = rocketx
+        self.rockety = rockety
         self.radius = radius
         self.color = color
         self.max_hitpoints = 10
@@ -28,7 +28,10 @@ class VolleyOfBullets(list):
             if len(self) == 0:
                 self.append(Bullet(self.screen, self.rocketx, self.rockety, 4, (255, 255, 255)))
 
-
     def draw(self):
         for bullet in self:
             bullet.draw_bullet()
+    @staticmethod
+    def if_collide(enemy, bullet):
+        del enemy
+        del bullet

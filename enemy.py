@@ -7,8 +7,6 @@ class Enemy(object):
         self.hitbox = hitbox
         self.hitpoints = 2
 
-
-
     def hit(self):
         self.hitpoints -= 1
         if self.hitpoints <= 0:
