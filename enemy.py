@@ -14,7 +14,6 @@ class Enemy(object):
         else:
             return True
 
-
     def draw_enemy(self):
         pygame.draw.rect(self.screen, (170, 0, 0), self.hitbox)
 

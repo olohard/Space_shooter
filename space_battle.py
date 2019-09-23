@@ -48,8 +48,7 @@ class Game(object):
                 if len(volley) >= 1:
                     collide = collision(enemy, volley[0])
                     if not collide:
-                        self.del_enemy(enemy)
-                        volley.pop(0)
+                        self.del_enemy(enemy,volley)
                         enemy = None
 
             while fps > 100.0:
@@ -61,8 +60,9 @@ class Game(object):
             self.go(player)
 
     @staticmethod
-    def del_enemy(enemy):
+    def del_enemy(enemy, volley):
         del enemy
+        volley.pop(0)
 
     # Moving an object
     @staticmethod
