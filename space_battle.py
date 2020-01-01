@@ -55,7 +55,7 @@ class Game(object):
                 fps -= 100.0
 
             screen.fill((0, 0, 0))
-            self.draw(player, volley, enemy,)
+            self.draw(player, volley, enemy)
             pygame.display.flip()
             self.go(player)
 
